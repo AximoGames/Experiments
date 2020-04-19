@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "Experiments",
+			"path": "."
+		},
+		{
+			"name": "AxEngine",
+			"path": "../AxEngine"
+		}
+	]
+}
