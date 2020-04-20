@@ -26,7 +26,7 @@ namespace Aximo.ProcTest
                 IsMultiThreaded = false,
             };
 
-            new GameStartup<RenderApplicationDemo, GtkUI>(config).Start();
+            new GameStartup<ProcTestApplication, GtkUI>(config).Start();
         }
     }
 }

@@ -2,7 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Linq;
 using Aximo.Engine;
+using Aximo.Render;
 using OpenToolkit;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
@@ -10,9 +12,9 @@ using SixLabors.ImageSharp;
 
 namespace Aximo.ProcTest
 {
-    public class RenderApplicationDemo : RenderApplication
+    public class ProcTestApplication : RenderApplication
     {
-        public RenderApplicationDemo(RenderApplicationConfig startup) : base(startup)
+        public ProcTestApplication(RenderApplicationConfig startup) : base(startup)
         {
         }
 
@@ -106,11 +108,73 @@ namespace Aximo.ProcTest
                 Material = materialWood1,
             }));
 
+            var cmp = CreateMesh();
+            GameContext.AddActor(new Actor(cmp));
+
             // For performance reasons, skybox should rendered as last
             GameContext.AddActor(new Actor(new SkyBoxComponent()
             {
                 Name = "Sky",
             }));
+        }
+
+        private StaticMeshComponent CreateMesh()
+        {
+            var box = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_BOX_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_BOX_COORDINATES);
+            var sphere = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_SPHERE_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_SPHERE_COORDINATES);
+            sphere.Scale(0.68, 0.68, 0.68);
+
+            var cylinder1 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
+            cylinder1.Scale(0.38, 1, 0.38);
+
+            var cylinder2 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
+            cylinder2.Scale(0.38, 1, 0.38);
+            cylinder2.Rotate(Math.PI / 2, 0);
+
+            var cylinder3 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
+            cylinder3.Scale(0.38, 1, 0.38);
+            cylinder3.Rotate(Math.PI / 2, 0);
+            cylinder3.Rotate(0, Math.PI / 2);
+
+            var modeller = new Net3dBool.BooleanModeller(box, sphere);
+            var tmp = modeller.GetIntersection();
+
+            modeller = new Net3dBool.BooleanModeller(tmp, cylinder1);
+            tmp = modeller.GetDifference();
+
+            modeller = new Net3dBool.BooleanModeller(tmp, cylinder2);
+            tmp = modeller.GetDifference();
+
+            modeller = new Net3dBool.BooleanModeller(tmp, cylinder3);
+            tmp = modeller.GetDifference();
+
+            VertexDataPosNormalColor[] data = tmp.GetVertices().Select(v => new VertexDataPosNormalColor(new Vector3((float)v.X, (float)v.Y, (float)v.Z), new Vector3(1, 0, 0), new Vector4(1, 1, 0, 1))).ToArray();
+            for (var i = 0; i < data.Length; i++)
+            {
+                data[i].Color = new Vector4(1, 0, 1, 1);
+                data[i].Normal = Vector3.UnitX;
+            }
+            var bufferData = new BufferData1D<VertexDataPosNormalColor>(data);
+            var meshData = new MeshData<VertexDataPosNormalColor>(bufferData, new BufferData1D<ushort>(tmp.GetIndices().Select(v => (ushort)v).ToArray()));
+
+            var material = new GameMaterial
+            {
+                Ambient = 0.5f,
+                Color = new Vector3(0, 0, 1),
+                UseVertexColor = true,
+                //PipelineType = PipelineType.Forward,
+            };
+
+            var comp = new StaticMeshComponent()
+            {
+                Name = "BoolMesh",
+                RelativeRotation = new Vector3(0, 0, 0.5f).ToQuaternion(),
+                RelativeScale = new Vector3(1),
+                RelativeTranslation = new Vector3(2, 0, 0.5f),
+                Material = material,
+            };
+            comp.SetMesh(meshData);
+            return comp;
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
