@@ -151,7 +151,20 @@ namespace Aximo.ProcTest
             VertexDataPosNormalColor[] data = tmp.GetVertices().Select(v => new VertexDataPosNormalColor(new Vector3((float)v.X, (float)v.Y, (float)v.Z), new Vector3(1, 0, 0), new Vector4(1, 1, 0, 1))).ToArray();
             for (var i = 0; i < data.Length; i++)
             {
-                data[i].Color = new Vector4(1, 0, 1, 1);
+                var face = i / 3;
+                var vertex = i % 3;
+                switch (vertex)
+                {
+                    case 0:
+                        data[i].Color = new Vector4(1, 0, 0, 1);
+                        break;
+                    case 1:
+                        data[i].Color = new Vector4(0, 1, 0, 1);
+                        break;
+                    case 2:
+                        data[i].Color = new Vector4(0, 0, 1, 1);
+                        break;
+                }
                 data[i].Normal = Vector3.UnitX;
             }
             var bufferData = new BufferData1D<VertexDataPosNormalColor>(data);
