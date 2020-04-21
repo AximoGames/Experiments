@@ -13,9 +13,9 @@ using SixLabors.ImageSharp;
 
 namespace Aximo.ProcTest
 {
-    public class ProcTestApplication : RenderApplication
+    public class PlayGround1Application : RenderApplication
     {
-        public ProcTestApplication(RenderApplicationConfig startup) : base(startup)
+        public PlayGround1Application(RenderApplicationConfig startup) : base(startup)
         {
         }
 

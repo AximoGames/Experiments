@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>PlayGround1</RootNamespace>
+    <AssemblyName>PlayGround1</AssemblyName>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+    <NoWarn>CS0162</NoWarn>
+  	<CodeAnalysisRuleSet>..\..\AxEngine\props\default.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="..\..\AxEngine\props\SharedProjectSettings.props" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\AxEngine\Common\Common.csproj" />
+    <ProjectReference Include="..\..\AxEngine\Render\Render.csproj" />
+    <ProjectReference Include="..\..\AxEngine\External\Net3dBool\src\Net3dBool\Net3dBool.csproj" />
+    <ProjectReference Include="..\..\AxEngine\Engine\Engine.csproj" />
+  </ItemGroup>
+</Project>
