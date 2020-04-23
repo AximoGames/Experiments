@@ -174,9 +174,9 @@ namespace Aximo.ProcTest
             var material = new GameMaterial
             {
                 Ambient = 0.5f,
-                Color = new Vector3(0, 0, 1),
+                Color = new Vector3(1, 1, 1),
                 UseVertexColor = true,
-                //PipelineType = PipelineType.Forward,
+                PipelineType = PipelineType.Forward,
             };
 
             var comp = new StaticMeshComponent()

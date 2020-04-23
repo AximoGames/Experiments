@@ -10,8 +10,9 @@ using OpenToolkit;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
 using SixLabors.ImageSharp;
+using Aximo.Engine.Mesh2;
 
-namespace Aximo.ProcTest
+namespace Aximo.PlayGround1
 {
     public class PlayGround1Application : RenderApplication
     {
@@ -121,74 +122,50 @@ namespace Aximo.ProcTest
 
         private StaticMeshComponent CreateMesh()
         {
-            var box = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_BOX_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_BOX_COORDINATES);
-            var sphere = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_SPHERE_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_SPHERE_COORDINATES);
-            sphere.Scale(0.68, 0.68, 0.68);
+            var tmp = new Engine.Mesh2.Mesh();
+            var comp = new MeshPositionComponent();
+            var comp2 = new MeshNormalComponent();
+            var comp3 = new MeshUVComponent();
 
-            var cylinder1 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
-            cylinder1.Scale(0.38, 1, 0.38);
+            tmp.AddComponent(comp);
 
-            var cylinder2 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
-            cylinder2.Scale(0.38, 1, 0.38);
-            cylinder2.Rotate(Math.PI / 2, 0);
-
-            var cylinder3 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
-            cylinder3.Scale(0.38, 1, 0.38);
-            cylinder3.Rotate(Math.PI / 2, 0);
-            cylinder3.Rotate(0, Math.PI / 2);
-
-            var modeller = new Net3dBool.BooleanModeller(box, sphere);
-            var tmp = modeller.GetIntersection();
-
-            modeller = new Net3dBool.BooleanModeller(tmp, cylinder1);
-            tmp = modeller.GetDifference();
-
-            modeller = new Net3dBool.BooleanModeller(tmp, cylinder2);
-            tmp = modeller.GetDifference();
-
-            modeller = new Net3dBool.BooleanModeller(tmp, cylinder3);
-            tmp = modeller.GetDifference();
-
-            VertexDataPosNormalColor[] data = tmp.GetVertices().Select(v => new VertexDataPosNormalColor(new Vector3((float)v.X, (float)v.Y, (float)v.Z), new Vector3(1, 0, 0), new Vector4(1, 1, 0, 1))).ToArray();
-            for (var i = 0; i < data.Length; i++)
+            var m = (BufferData1D<VertexDataPosNormalUV>)MeshDataBuilder.Cube().Data;
+            var m2 = m.Span;
+            for (var i = 0; i < m2.Length; i++)
             {
-                var face = i / 3;
-                var vertex = i % 3;
-                switch (vertex)
-                {
-                    case 0:
-                        data[i].Color = new Vector4(1, 0, 0, 1);
-                        break;
-                    case 1:
-                        data[i].Color = new Vector4(0, 1, 0, 1);
-                        break;
-                    case 2:
-                        data[i].Color = new Vector4(0, 0, 1, 1);
-                        break;
-                }
-                data[i].Normal = Vector3.UnitX;
+                comp.Add(m2[i].Position);
+                comp2.Add(m2[i].Normal);
+                comp3.Add(m2[i].UV);
             }
-            var bufferData = new BufferData1D<VertexDataPosNormalColor>(data);
-            var meshData = new MeshData<VertexDataPosNormalColor>(bufferData, new BufferData1D<ushort>(tmp.GetIndices().Select(v => (ushort)v).ToArray()));
 
-            var material = new GameMaterial
+            tmp.Visit<IVertexPosition3>((m, i) => m.Position = Vector3.UnitZ);
+            foreach (var itm in tmp.View<IVertexPosition3>())
             {
-                Ambient = 0.5f,
-                Color = new Vector3(0, 0, 1),
-                UseVertexColor = true,
-                //PipelineType = PipelineType.Forward,
-            };
+                tmp.View<IVertexPosition3>()[0] = new VertexDataPos { };
+            }
 
-            var comp = new StaticMeshComponent()
-            {
-                Name = "BoolMesh",
-                RelativeRotation = new Vector3(0, 0, 0.5f).ToQuaternion(),
-                RelativeScale = new Vector3(1),
-                RelativeTranslation = new Vector3(2, 0, 0.5f),
-                Material = material,
-            };
-            comp.SetMesh(meshData);
-            return comp;
+            // var bufferData = new BufferData1D<VertexDataPosNormalColor>(data);
+            // var meshData = new MeshData<VertexDataPosNormalColor>(bufferData, new BufferData1D<ushort>(tmp.GetIndices().Select(v => (ushort)v).ToArray()));
+
+            // var material = new GameMaterial
+            // {
+            //     Ambient = 0.5f,
+            //     Color = new Vector3(0, 0, 1),
+            //     UseVertexColor = true,
+            //     //PipelineType = PipelineType.Forward,
+            // };
+
+            // var comp = new StaticMeshComponent()
+            // {
+            //     Name = "BoolMesh",
+            //     RelativeRotation = new Vector3(0, 0, 0.5f).ToQuaternion(),
+            //     RelativeScale = new Vector3(1),
+            //     RelativeTranslation = new Vector3(2, 0, 0.5f),
+            //     Material = material,
+            // };
+            // comp.SetMesh(meshData);
+            // return comp;
+            return null;
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)

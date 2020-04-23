@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "..\AxEngine\Demo\De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "..\AxEngine\Tests\Tests.csproj", "{D03CB932-B322-4EEB-AEB5-CE82B4A75594}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayGround1", "PlayGround1\PlayGround1.csproj", "{77C9F858-3BBA-4353-AEE3-ADE64801DB93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,10 @@ Global
 		{D03CB932-B322-4EEB-AEB5-CE82B4A75594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D03CB932-B322-4EEB-AEB5-CE82B4A75594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D03CB932-B322-4EEB-AEB5-CE82B4A75594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C9F858-3BBA-4353-AEE3-ADE64801DB93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C9F858-3BBA-4353-AEE3-ADE64801DB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C9F858-3BBA-4353-AEE3-ADE64801DB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C9F858-3BBA-4353-AEE3-ADE64801DB93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

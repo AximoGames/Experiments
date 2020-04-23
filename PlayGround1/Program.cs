@@ -7,7 +7,7 @@ using OpenToolkit;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
 
-namespace Aximo.ProcTest
+namespace Aximo.PlayGround1
 {
     internal class Program
     {
@@ -15,7 +15,7 @@ namespace Aximo.ProcTest
         {
             var config = new RenderApplicationConfig
             {
-                WindowTitle = "ProcTest",
+                WindowTitle = "PlayGround1",
                 WindowSize = new Vector2i(800, 600),
                 WindowBorder = WindowBorder.Resizable,
                 //RenderFrequency = 490,
