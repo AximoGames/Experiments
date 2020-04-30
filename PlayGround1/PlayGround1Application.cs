@@ -123,27 +123,40 @@ namespace Aximo.PlayGround1
         private StaticMeshComponent CreateMesh()
         {
             var tmp = new Engine.Mesh2.Mesh();
-            var comp = new MeshPositionComponent();
-            var comp2 = new MeshNormalComponent();
-            var comp3 = new MeshUVComponent();
+            var compPosition = new MeshPositionComponent();
+            var compNormal = new MeshNormalComponent();
+            var compUV = new MeshUVComponent();
 
-            tmp.AddComponent(comp);
+            tmp.AddComponent(compPosition);
+            tmp.AddComponent(compNormal);
+            tmp.AddComponent(compUV);
 
             var m = (BufferData1D<VertexDataPosNormalUV>)MeshDataBuilder.Cube().Data;
             var m2 = m.Span;
             for (var i = 0; i < m2.Length; i++)
             {
-                comp.Add(m2[i].Position);
-                comp2.Add(m2[i].Normal);
-                comp3.Add(m2[i].UV);
+                compPosition.Add(m2[i].Position);
+                compNormal.Add(m2[i].Normal);
+                compUV.Add(m2[i].UV);
             }
 
-            tmp.Visit<IVertexPosition3>((m, i) => m.Position = Vector3.UnitZ);
-            foreach (var itm in tmp.View<IVertexPosition3>())
+            var vv = tmp.View<IVertexPosNormalUV>();
+            for (var i = 0; i < m2.Length; i++)
             {
-                tmp.View<IVertexPosition3>()[0] = new VertexDataPos { };
+                vv.Add(m2[i]);
             }
 
+            tmp.Visit<IVertexPosNormalUV>((m, i) => m.Position = Vector3.UnitZ);
+
+            var view = tmp.View<IVertexPosNormalUV>();
+            var view2 = tmp.View<IVertexPosNormalUV>();
+
+            view[0].Position = view2[0].Position;
+            view[0] = new VertexDataPosNormalUV();
+            tmp.AddFace(new int[] { 0, 1, 2, 3 });
+            var faces = tmp.FaceView<IVertexPosNormalUV>();
+            var f = faces[0];
+            f[0].Position = new Vector3();
             // var bufferData = new BufferData1D<VertexDataPosNormalColor>(data);
             // var meshData = new MeshData<VertexDataPosNormalColor>(bufferData, new BufferData1D<ushort>(tmp.GetIndices().Select(v => (ushort)v).ToArray()));
 
