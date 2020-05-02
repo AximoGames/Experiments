@@ -30,6 +30,14 @@ namespace Aximo.PlayGround1
                 SpecularStrength = 0.5f,
                 CastShadow = true,
             };
+            var materialWood2 = new GameMaterial()
+            {
+                DiffuseTexture = GameTexture.GetFromFile("Textures/wood.png"),
+                Ambient = 0.3f,
+                Shininess = 32.0f,
+                SpecularStrength = 0.5f,
+                CastShadow = true,
+            };
 
             GameContext.AddActor(new Actor(new CubeComponent()
             {
@@ -111,6 +119,7 @@ namespace Aximo.PlayGround1
 
             var cmp = CreateMesh();
             cmp.AddMaterial(materialWood1);
+            cmp.AddMaterial(materialWood2);
             GameContext.AddActor(new Actor(cmp));
 
             // For performance reasons, skybox should rendered as last
@@ -123,7 +132,7 @@ namespace Aximo.PlayGround1
         private StaticMeshComponent CreateMesh()
         {
             var tmp = new Mesh();
-            var compPosition = new MeshPositionComponent();
+            var compPosition = new MeshPosition3Component();
             var compNormal = new MeshNormalComponent();
             var compUV = new MeshUVComponent();
 
@@ -141,6 +150,10 @@ namespace Aximo.PlayGround1
 
             tmp.CreateFaces();
             tmp.SetMaterial(1, 1);
+
+            var tmp2 = Mesh.CreateSphere();
+            tmp2.Translate(new Vector3(0.5f, 0.5f, 0));
+            tmp.AddMesh(tmp2);
 
             return new StaticMeshComponent(tmp)
             {
