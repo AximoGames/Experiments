@@ -139,7 +139,13 @@ namespace Aximo.PlayGround1
                 compUV.Add(m2[i].UV);
             }
 
-            return new StaticMeshComponent(tmp);
+            tmp.CreateFaces();
+            tmp.SetMaterial(1, 1);
+
+            return new StaticMeshComponent(tmp)
+            {
+                RelativeTranslation = new Vector3(0, 0, 1),
+            };
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
