@@ -168,7 +168,7 @@ namespace Aximo.ProcTest
                 }
                 data[i].Normal = Vector3.UnitX;
             }
-            var meshData = Mesh3.CreateFromVertices(data, tmp.GetIndices().ToArray());
+            var meshData = Mesh.CreateFromVertices(data, tmp.GetIndices().ToArray());
 
             var material = new GameMaterial
             {
@@ -363,5 +363,4 @@ namespace Aximo.ProcTest
     //         }
     //     }
     // }
-
 }

@@ -122,7 +122,7 @@ namespace Aximo.PlayGround1
 
         private StaticMeshComponent CreateMesh()
         {
-            var tmp = new Mesh3();
+            var tmp = new Mesh();
             var compPosition = new MeshPositionComponent();
             var compNormal = new MeshNormalComponent();
             var compUV = new MeshUVComponent();
