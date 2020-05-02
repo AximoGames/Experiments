@@ -210,7 +210,7 @@ namespace Aximo.ProcTest
     //     /// <param name="mesh"></param>
     //     /// <param name="angle">
     //     ///     The smoothing angle. Note that triangles that already share
-    //     ///     the same vertex will be smooth regardless of the angle! 
+    //     ///     the same vertex will be smooth regardless of the angle!
     //     /// </param>
     //     public static void RecalculateNormals(this Mesh mesh, float angle)
     //     {

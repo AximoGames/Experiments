@@ -12,10 +12,10 @@
     },
     "documentationRules": {
       "companyName": "Aximo Games",
-      "copyrightText": "This file is part of Aximo Marbles, a Game written in C# with the Aximo Game Engine. Web: https://github.com/AximoGames\nLicensed under the {licenseName} license. See {licenseFile} file in the project root for full license information.",
+      "copyrightText": "This file is part of Aximo, a Game Engine written in C#. Web: https://github.com/AximoGames\nLicensed under the {licenseName} license. See {licenseFile} file in the project root for full license information.",
       "xmlHeader": false,
       "variables": {
-        "licenseName": "GPL3",
+        "licenseName": "MIT",
         "licenseFile": "LICENSE"
       }
     }
