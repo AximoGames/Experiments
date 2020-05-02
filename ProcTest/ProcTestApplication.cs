@@ -168,8 +168,7 @@ namespace Aximo.ProcTest
                 }
                 data[i].Normal = Vector3.UnitX;
             }
-            var bufferData = new BufferData1D<VertexDataPosNormalColor>(data);
-            var meshData = new MeshData<VertexDataPosNormalColor>(bufferData, new BufferData1D<ushort>(tmp.GetIndices().Select(v => (ushort)v).ToArray()));
+            var meshData = Mesh3.CreateFromVertices(data, tmp.GetIndices().ToArray());
 
             var material = new GameMaterial
             {
@@ -200,7 +199,6 @@ namespace Aximo.ProcTest
                     cursor.RelativeTranslation = new Vector3(CurrentMouseWorldPosition.X, CurrentMouseWorldPosition.Y, cursor.RelativeTranslation.Z);
             }
         }
-
     }
 
     // public static class NormalSolver

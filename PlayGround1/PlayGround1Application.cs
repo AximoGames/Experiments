@@ -10,7 +10,6 @@ using OpenToolkit;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
 using SixLabors.ImageSharp;
-using Aximo.Engine.Mesh2;
 
 namespace Aximo.PlayGround1
 {
@@ -101,16 +100,17 @@ namespace Aximo.PlayGround1
                 Material = materialWood1,
             }));
 
-            GameContext.AddActor(new Actor(new CubeComponent()
-            {
-                Name = "Box1",
-                RelativeRotation = new Vector3(0, 0, 0.5f).ToQuaternion(),
-                RelativeScale = new Vector3(1),
-                RelativeTranslation = new Vector3(0, 0, 0.5f),
-                Material = materialWood1,
-            }));
+            // GameContext.AddActor(new Actor(new CubeComponent()
+            // {
+            //     Name = "Box1",
+            //     RelativeRotation = new Vector3(0, 0, 0.5f).ToQuaternion(),
+            //     RelativeScale = new Vector3(1),
+            //     RelativeTranslation = new Vector3(0, 0, 0.5f),
+            //     Material = materialWood1,
+            // }));
 
             var cmp = CreateMesh();
+            cmp.AddMaterial(materialWood1);
             GameContext.AddActor(new Actor(cmp));
 
             // For performance reasons, skybox should rendered as last
@@ -122,7 +122,7 @@ namespace Aximo.PlayGround1
 
         private StaticMeshComponent CreateMesh()
         {
-            var tmp = new Engine.Mesh2.Mesh();
+            var tmp = new Mesh3();
             var compPosition = new MeshPositionComponent();
             var compNormal = new MeshNormalComponent();
             var compUV = new MeshUVComponent();
@@ -131,8 +131,7 @@ namespace Aximo.PlayGround1
             tmp.AddComponent(compNormal);
             tmp.AddComponent(compUV);
 
-            var m = (BufferData1D<VertexDataPosNormalUV>)MeshDataBuilder.Cube().Data;
-            var m2 = m.Span;
+            var m2 = DataHelper.DefaultCube;
             for (var i = 0; i < m2.Length; i++)
             {
                 compPosition.Add(m2[i].Position);
@@ -140,45 +139,7 @@ namespace Aximo.PlayGround1
                 compUV.Add(m2[i].UV);
             }
 
-            var vv = tmp.View<IVertexPosNormalUV>();
-            for (var i = 0; i < m2.Length; i++)
-            {
-                vv.Add(m2[i]);
-            }
-
-            tmp.Visit<IVertexPosNormalUV>((m, i) => m.Position = Vector3.UnitZ);
-
-            var view = tmp.View<IVertexPosNormalUV>();
-            var view2 = tmp.View<IVertexPosNormalUV>();
-
-            view[0].Position = view2[0].Position;
-            view[0] = new VertexDataPosNormalUV();
-            tmp.AddFace(new int[] { 0, 1, 2, 3 });
-            var faces = tmp.FaceView<IVertexPosNormalUV>();
-            var f = faces[0];
-            f[0].Position = new Vector3();
-            // var bufferData = new BufferData1D<VertexDataPosNormalColor>(data);
-            // var meshData = new MeshData<VertexDataPosNormalColor>(bufferData, new BufferData1D<ushort>(tmp.GetIndices().Select(v => (ushort)v).ToArray()));
-
-            // var material = new GameMaterial
-            // {
-            //     Ambient = 0.5f,
-            //     Color = new Vector3(0, 0, 1),
-            //     UseVertexColor = true,
-            //     //PipelineType = PipelineType.Forward,
-            // };
-
-            // var comp = new StaticMeshComponent()
-            // {
-            //     Name = "BoolMesh",
-            //     RelativeRotation = new Vector3(0, 0, 0.5f).ToQuaternion(),
-            //     RelativeScale = new Vector3(1),
-            //     RelativeTranslation = new Vector3(2, 0, 0.5f),
-            //     Material = material,
-            // };
-            // comp.SetMesh(meshData);
-            // return comp;
-            return null;
+            return new StaticMeshComponent(tmp);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -190,7 +151,6 @@ namespace Aximo.PlayGround1
                     cursor.RelativeTranslation = new Vector3(CurrentMouseWorldPosition.X, CurrentMouseWorldPosition.Y, cursor.RelativeTranslation.Z);
             }
         }
-
     }
 
     // public static class NormalSolver
@@ -202,7 +162,7 @@ namespace Aximo.PlayGround1
     //     /// <param name="mesh"></param>
     //     /// <param name="angle">
     //     ///     The smoothing angle. Note that triangles that already share
-    //     ///     the same vertex will be smooth regardless of the angle! 
+    //     ///     the same vertex will be smooth regardless of the angle!
     //     /// </param>
     //     public static void RecalculateNormals(this Mesh mesh, float angle)
     //     {
@@ -355,5 +315,4 @@ namespace Aximo.PlayGround1
     //         }
     //     }
     // }
-
 }
