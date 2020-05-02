@@ -148,7 +148,7 @@ namespace Aximo.PlayGround1
                 compUV.Add(m2[i].UV);
             }
 
-            tmp.CreateFaces();
+            tmp.CreateFacesAndIndicies();
             tmp.SetMaterial(1, 1);
 
             var tmp2 = Mesh.CreateSphere();
