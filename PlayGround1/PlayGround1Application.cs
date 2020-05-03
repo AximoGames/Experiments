@@ -10,6 +10,10 @@ using OpenToolkit;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.Fonts;
 
 namespace Aximo.PlayGround1
 {
@@ -21,6 +25,15 @@ namespace Aximo.PlayGround1
 
         protected override void SetupScene()
         {
+            var materialUV = new GameMaterial()
+            {
+                DiffuseTexture = GameTexture.GetFromFile("Textures/Engine/UVTest.png"),
+                Ambient = 0.3f,
+                Shininess = 32.0f,
+                SpecularStrength = 0.5f,
+                CastShadow = true,
+            };
+
             var materialWood1 = new GameMaterial()
             {
                 DiffuseTexture = GameTexture.GetFromFile("Textures/woodenbox.png"),
@@ -118,6 +131,7 @@ namespace Aximo.PlayGround1
             // }));
 
             var cmp = CreateMesh();
+            cmp.AddMaterial(materialUV);
             cmp.AddMaterial(materialWood1);
             cmp.AddMaterial(materialWood2);
             GameContext.AddActor(new Actor(cmp));
@@ -138,7 +152,7 @@ namespace Aximo.PlayGround1
 
             tmp.AddComponents<VertexDataPosNormalUV>();
 
-            var tmp3 = Mesh.CreateCylinder();
+            var tmp3 = Mesh.CreateCylinder(1f, 0.5f);
             tmp3.Translate(new Vector3(0, -1f, 0));
             tmp.AddMesh(tmp3);
             //tmp.AddMesh(Mesh.CreateCube());
