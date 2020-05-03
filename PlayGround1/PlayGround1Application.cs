@@ -140,12 +140,12 @@ namespace Aximo.PlayGround1
 
             var tmp3 = Mesh.CreateCylinder();
             tmp3.Translate(new Vector3(0, -1f, 0));
-            //tmp.AddMesh(tmp3);
-            tmp.AddMesh(Mesh.CreateCube());
+            tmp.AddMesh(tmp3);
+            //tmp.AddMesh(Mesh.CreateCube());
 
             return new StaticMeshComponent(tmp)
             {
-                RelativeTranslation = new Vector3(0, 0, 0.5f),
+                RelativeTranslation = new Vector3(0, 0, 0.55f),
             };
         }
 
