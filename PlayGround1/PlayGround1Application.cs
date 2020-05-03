@@ -155,6 +155,10 @@ namespace Aximo.PlayGround1
             tmp2.Translate(new Vector3(0.5f, 0.5f, 0));
             tmp.AddMesh(tmp2);
 
+            var tmp3 = Mesh.CreateWallQuad();
+            tmp3.Translate(new Vector3(0, -1f, 0));
+            tmp.AddMesh(tmp3);
+
             return new StaticMeshComponent(tmp)
             {
                 RelativeTranslation = new Vector3(0, 0, 1),
