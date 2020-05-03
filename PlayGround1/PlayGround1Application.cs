@@ -145,17 +145,22 @@ namespace Aximo.PlayGround1
 
         private StaticMeshComponent CreateMesh()
         {
-            var tmp = new Mesh();
-            var compPosition = new MeshPosition3Component();
-            var compNormal = new MeshNormalComponent();
-            var compUV = new MeshUVComponent();
+            var tmp = Mesh.CreateSphere();
 
-            tmp.AddComponents<VertexDataPosNormalUV>();
+            var m2 = Mesh.CreateCylinder();
+            m2.Scale(0.3f, 0.3f);
+            m2.Translate(new Vector3(0, 0, 0.05f));
+            tmp.AddMesh(m2, 0, 1);
 
-            var tmp3 = Mesh.CreateCylinder(1f, 0.5f);
-            tmp3.Translate(new Vector3(0, -1f, 0));
-            tmp.AddMesh(tmp3);
-            //tmp.AddMesh(Mesh.CreateCube());
+            var m3 = Mesh.CreateCylinder();
+            m2.Scale(0.15f, 0.15f);
+            m2.Translate(new Vector3(0, 0, 0.3f));
+            tmp.AddMesh(m2, 0, 2);
+
+            // var tmp3 = Mesh.CreateCylinder(1f, 0.5f);
+            // tmp3.Translate(new Vector3(0, -1f, 0));
+            // tmp.AddMesh(tmp3);
+            // //tmp.AddMesh(Mesh.CreateCube());
 
             return new StaticMeshComponent(tmp)
             {
