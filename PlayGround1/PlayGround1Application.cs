@@ -136,32 +136,16 @@ namespace Aximo.PlayGround1
             var compNormal = new MeshNormalComponent();
             var compUV = new MeshUVComponent();
 
-            tmp.AddComponent(compPosition);
-            tmp.AddComponent(compNormal);
-            tmp.AddComponent(compUV);
+            tmp.AddComponents<VertexDataPosNormalUV>();
 
-            var m2 = DataHelper.DefaultCube;
-            for (var i = 0; i < m2.Length; i++)
-            {
-                compPosition.Add(m2[i].Position);
-                compNormal.Add(m2[i].Normal);
-                compUV.Add(m2[i].UV);
-            }
-
-            tmp.CreateFacesAndIndicies();
-            tmp.SetMaterial(1, 1);
-
-            var tmp2 = Mesh.CreateSphere();
-            tmp2.Translate(new Vector3(0.5f, 0.5f, 0));
-            tmp.AddMesh(tmp2);
-
-            var tmp3 = Mesh.CreateWallQuad();
+            var tmp3 = Mesh.CreateCylinder();
             tmp3.Translate(new Vector3(0, -1f, 0));
-            tmp.AddMesh(tmp3);
+            //tmp.AddMesh(tmp3);
+            tmp.AddMesh(Mesh.CreateCube());
 
             return new StaticMeshComponent(tmp)
             {
-                RelativeTranslation = new Vector3(0, 0, 1),
+                RelativeTranslation = new Vector3(0, 0, 0.5f),
             };
         }
 
