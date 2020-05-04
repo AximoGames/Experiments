@@ -46,6 +46,7 @@ namespace Aximo.PlayGround1
                 Shininess = 32.0f,
                 SpecularStrength = 0.5f,
                 CastShadow = true,
+                PipelineType = PipelineType.Forward,
             };
 
             var materialWood1 = new GameMaterial()
