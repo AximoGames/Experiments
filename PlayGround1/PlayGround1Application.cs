@@ -26,12 +26,22 @@ namespace Aximo.PlayGround1
         protected override void SetupScene()
         {
             var gen = new Aximo.Generators.AlchemyCircle.AlchemyCircle();
-            var img = gen.Generate(0, Color.Black, Color.White, 512, 4);
+            // 745209020,1575012077, 1070395224,1297930682,1919654508,276724715,1493067016,651225054,904005342
+            var img = gen.Generate(904005342, Color.Transparent, Color.White, 256, 4);
             img.Save("/tmp/blubb.png");
 
             var materialUV = new GameMaterial()
             {
                 DiffuseTexture = GameTexture.GetFromFile("Textures/Engine/UVTest.png"),
+                Ambient = 0.3f,
+                Shininess = 32.0f,
+                SpecularStrength = 0.5f,
+                CastShadow = true,
+            };
+
+            var materialGroundCursor = new GameMaterial()
+            {
+                DiffuseTexture = GameTexture.GetFromFile("/tmp/blubb.png"),
                 Ambient = 0.3f,
                 Shininess = 32.0f,
                 SpecularStrength = 0.5f,
@@ -117,12 +127,12 @@ namespace Aximo.PlayGround1
                 Name = "StaticLight",
             }));
 
-            GameContext.AddActor(new Actor(new CubeComponent()
+            GameContext.AddActor(new Actor(new QuadComponent()
             {
                 Name = "GroundCursor",
                 RelativeTranslation = new Vector3(0, 1, 0.05f),
                 RelativeScale = new Vector3(1.0f, 1.0f, 0.1f),
-                Material = materialWood1,
+                Material = materialGroundCursor,
             }));
 
             // GameContext.AddActor(new Actor(new CubeComponent()
