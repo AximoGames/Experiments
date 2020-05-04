@@ -25,6 +25,10 @@ namespace Aximo.PlayGround1
 
         protected override void SetupScene()
         {
+            var gen = new Aximo.Generators.AlchemyCircle.AlchemyCircle();
+            var img = gen.Generate(0, Color.Black, Color.White, 512, 4);
+            img.Save("/tmp/blubb.png");
+
             var materialUV = new GameMaterial()
             {
                 DiffuseTexture = GameTexture.GetFromFile("Textures/Engine/UVTest.png"),
