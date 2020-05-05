@@ -22,8 +22,13 @@ namespace Aximo.PlayGround1
                 //UpdateFrequency = 490,
                 //VSync = VSyncMode.Off,
                 // UseGtkUI = true,
+                RenderFrequency = 0,
+                UpdateFrequency = 0,
+                IdleRenderFrequency = 0,
+                IdleUpdateFrequency = 0,
+                VSync = VSyncMode.Off,
                 UseConsole = true,
-                IsMultiThreaded = false,
+                IsMultiThreaded = true,
             };
 
             new GameStartup<PlayGround1Application, GtkUI>(config).Start();
