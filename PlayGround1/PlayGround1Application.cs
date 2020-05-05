@@ -45,7 +45,7 @@ namespace Aximo.PlayGround1
                 Ambient = 0.3f,
                 Shininess = 32.0f,
                 SpecularStrength = 0.5f,
-                CastShadow = true,
+                CastShadow = false,
                 PipelineType = PipelineType.Forward,
             };
 
