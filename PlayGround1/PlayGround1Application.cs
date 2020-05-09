@@ -161,6 +161,7 @@ namespace Aximo.PlayGround1
         private StaticMeshComponent CreateMesh()
         {
             var tmp = Mesh.CreateSphere();
+            tmp.Name = "Bomb";
 
             var m2 = Mesh.CreateCylinder();
             m2.Scale(0.3f, 0.3f);
