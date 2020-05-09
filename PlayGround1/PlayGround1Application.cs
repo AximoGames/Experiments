@@ -27,7 +27,7 @@ namespace Aximo.PlayGround1
         {
             var gen = new Aximo.Generators.AlchemyCircle.AlchemyCircle();
             // 745209020,1575012077, 1070395224,1297930682,1919654508,276724715,1493067016,651225054,904005342
-            var img = gen.Generate(904005342, Color.Transparent, Color.White, 256, 4);
+            var img = gen.Generate(1919654508, Color.Transparent, Color.White, 256, 4);
             img.Save("/tmp/blubb.png");
 
             var materialUV = new GameMaterial()
