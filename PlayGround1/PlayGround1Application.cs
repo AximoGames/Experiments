@@ -25,10 +25,13 @@ namespace Aximo.PlayGround1
 
         protected override void SetupScene()
         {
-            var gen = new Aximo.Generators.AlchemyCircle.AlchemyCircle();
             // 745209020,1575012077, 1070395224,1297930682,1919654508,276724715,1493067016,651225054,904005342
-            var img = gen.Generate(1919654508, Color.Transparent, Color.White, 256, 4);
-            img.Save("/tmp/blubb.png");
+            var gen = new Aximo.Generators.AlchemyCircle.AlchemyCircleOptions
+            {
+                Seed = 1919654508,
+                Size = 256,
+                Thickness = 4,
+            };
 
             var materialUV = new GameMaterial()
             {
@@ -41,7 +44,7 @@ namespace Aximo.PlayGround1
 
             var materialGroundCursor = new GameMaterial()
             {
-                DiffuseTexture = GameTexture.GetFromFile("/tmp/blubb.png"),
+                DiffuseTexture = GameTexture.GetFromFile(DirectoryHelper.GetAssetsPath("Textures/AlchemyCircle/.png", gen)),
                 Ambient = 0.3f,
                 Shininess = 32.0f,
                 SpecularStrength = 0.5f,
