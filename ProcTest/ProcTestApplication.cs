@@ -4,7 +4,11 @@
 using System;
 using System.Linq;
 using Aximo.Engine;
+using Aximo.Engine.Components.Geometry;
+using Aximo.Engine.Components.Lights;
+using Aximo.Engine.Components.UI;
 using Aximo.Render;
+using Aximo.Render.VertexData;
 using OpenToolkit;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
