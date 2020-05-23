@@ -47,7 +47,7 @@ namespace Aximo.PlayGround1
 
             var materialGroundCursor = new GameMaterial()
             {
-                DiffuseTexture = GameTexture.GetFromFile(DirectoryHelper.GetAssetsPath("Textures/AlchemyCircle/.png", gen)),
+                DiffuseTexture = GameTexture.GetFromFile(AssetManager.GetAssetsPath("Textures/AlchemyCircle/.png", gen)),
                 Ambient = 0.3f,
                 Shininess = 32.0f,
                 SpecularStrength = 0.5f,
