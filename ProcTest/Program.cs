@@ -3,8 +3,6 @@
 
 using Aximo.Engine;
 using Aximo.Engine.Windows;
-using Gtk;
-using OpenToolkit;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
 
@@ -27,7 +25,7 @@ namespace Aximo.ProcTest
                 IsMultiThreaded = false,
             };
 
-            new Startup<ProcTestApplication, GtkUI>(config).Start();
+            new ProcTestApplication().Start(config);
         }
     }
 }

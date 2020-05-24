@@ -3,8 +3,6 @@
 
 using Aximo.Engine;
 using Aximo.Engine.Windows;
-using Gtk;
-using OpenToolkit;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
 
@@ -32,7 +30,7 @@ namespace Aximo.PlayGround1
                 IsMultiThreaded = true,
             };
 
-            new Startup<PlayGround1Application, GtkUI>(config).Start();
+            new PlayGround1Application().Start(config);
         }
     }
 }

@@ -7,21 +7,14 @@ using Aximo.Engine;
 using Aximo.Engine.Components.Geometry;
 using Aximo.Engine.Components.Lights;
 using Aximo.Engine.Components.UI;
-using Aximo.Render;
-using Aximo.Render.VertexData;
-using OpenToolkit;
+using Aximo.VertexData;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
-using SixLabors.ImageSharp;
 
 namespace Aximo.ProcTest
 {
     public class ProcTestApplication : Application
     {
-        public ProcTestApplication(ApplicationConfig startup) : base(startup)
-        {
-        }
-
         protected override void SetupScene()
         {
             var materialWood1 = new Material()
