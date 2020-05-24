@@ -14,7 +14,7 @@ namespace Aximo.ProcTest
     {
         public static void Main(string[] args)
         {
-            var config = new RenderApplicationConfig
+            var config = new ApplicationConfig
             {
                 WindowTitle = "ProcTest",
                 WindowSize = new Vector2i(800, 600),
@@ -27,7 +27,7 @@ namespace Aximo.ProcTest
                 IsMultiThreaded = false,
             };
 
-            new GameStartup<ProcTestApplication, GtkUI>(config).Start();
+            new Startup<ProcTestApplication, GtkUI>(config).Start();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Aximo.PlayGround1
     {
         public static void Main(string[] args)
         {
-            var config = new RenderApplicationConfig
+            var config = new ApplicationConfig
             {
                 WindowTitle = "PlayGround1",
                 WindowSize = new Vector2i(800, 600),
@@ -32,7 +32,7 @@ namespace Aximo.PlayGround1
                 IsMultiThreaded = true,
             };
 
-            new GameStartup<PlayGround1Application, GtkUI>(config).Start();
+            new Startup<PlayGround1Application, GtkUI>(config).Start();
         }
     }
 }
