@@ -1,6 +1,7 @@
 ﻿// This file is part of Aximo, a Game Engine written in C#. Web: https://github.com/AximoGames
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using Aximo.Engine;
 using Aximo.Engine.Components.Geometry;
 using Aximo.Engine.Components.Lights;
@@ -142,6 +143,16 @@ namespace Aximo.PlayGround1
             cmp.AddMaterial(materialWood1);
             cmp.AddMaterial(materialWood2);
             SceneContext.AddActor(new Actor(cmp));
+
+            Tween.For(cmp)
+                .Duration(2)
+                .ScaleFunc(ScaleFuncs.Power2EaseInOut)
+                .Scale(new Vector3(3f)).Translate(1, 0).Then()
+                .Translate(1, 3).Then()
+                .Scale(new Vector3(1)).Then()
+                .Translate(-1, -1).Scale(new Vector3(3)).Then()
+                .Duration(0.0f).Translate(0, 0).Scale(1)
+                .Repeat().Start();
 
             // For performance reasons, skybox should rendered as last
             SceneContext.AddActor(new Actor(new SkyBoxComponent()
