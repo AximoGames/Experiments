@@ -27,7 +27,10 @@ namespace Aximo.PlayGround1
                 VSync = VSyncMode.Off,
                 UseConsole = true,
                 IsMultiThreaded = true,
+                //UseShadows = false,
             };
+
+            Aximo.Engine.Audio.AudioTest.Main_();
 
             new PlayGround1Application().Start(config);
         }

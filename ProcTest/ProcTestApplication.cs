@@ -117,32 +117,32 @@ namespace Aximo.ProcTest
 
         private StaticMeshComponent CreateMesh()
         {
-            var box = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_BOX_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_BOX_COORDINATES);
-            var sphere = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_SPHERE_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_SPHERE_COORDINATES);
-            sphere.Scale(0.68, 0.68, 0.68);
+            var mesh = Mesh.CreateCube().ToPrimitive(MeshFaceType.Triangle);
+            mesh.CreateFacesAndIndicies();
+            mesh.Scale(10);
+            var ind = mesh.GetIndiciesArray();
+            var vert = mesh.GetComponent<MeshPosition3Component>().ToArray().Select(s => new Vector3d(s.X, s.Y, s.Z)).ToArray();
+            var box = new Net3dBool.Solid(vert, ind);
 
-            var cylinder1 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
-            cylinder1.Scale(0.38, 1, 0.38);
+            mesh = Mesh.CreateCube().ToPrimitive(MeshFaceType.Triangle);
+            mesh.CreateFacesAndIndicies();
+            mesh.Scale(3);
+            ind = mesh.GetIndiciesArray();
+            vert = mesh.GetComponent<MeshPosition3Component>().ToArray().Select(s => new Vector3d(s.X, s.Y, s.Z)).ToArray();
+            var box2 = new Net3dBool.Solid(vert, ind);
 
-            var cylinder2 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
-            cylinder2.Scale(0.38, 1, 0.38);
-            cylinder2.Rotate(Math.PI / 2, 0);
+            mesh = Mesh.CreateCube().ToPrimitive(MeshFaceType.Triangle);
+            mesh.CreateFacesAndIndicies();
+            mesh.Scale(2);
+            mesh.Translate(1, 0, 0);
+            ind = mesh.GetIndiciesArray();
+            vert = mesh.GetComponent<MeshPosition3Component>().ToArray().Select(s => new Vector3d(s.X, s.Y, s.Z)).ToArray();
+            var box3 = new Net3dBool.Solid(vert, ind);
 
-            var cylinder3 = new Net3dBool.Solid(Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_VERTICES, Net3dBool.DefaultCoordinates.DEFAULT_CYLINDER_COORDINATES);
-            cylinder3.Scale(0.38, 1, 0.38);
-            cylinder3.Rotate(Math.PI / 2, 0);
-            cylinder3.Rotate(0, Math.PI / 2);
+            var modeller = new Net3dBool.BooleanModeller(box, box2);
+            var tmp = modeller.GetDifference();
 
-            var modeller = new Net3dBool.BooleanModeller(box, sphere);
-            var tmp = modeller.GetIntersection();
-
-            modeller = new Net3dBool.BooleanModeller(tmp, cylinder1);
-            tmp = modeller.GetDifference();
-
-            modeller = new Net3dBool.BooleanModeller(tmp, cylinder2);
-            tmp = modeller.GetDifference();
-
-            modeller = new Net3dBool.BooleanModeller(tmp, cylinder3);
+            modeller = new Net3dBool.BooleanModeller(tmp, box3);
             tmp = modeller.GetDifference();
 
             VertexDataPosNormalColor[] data = tmp.GetVertices().Select(v => new VertexDataPosNormalColor(new Vector3((float)v.X, (float)v.Y, (float)v.Z), new Vector3(1, 0, 0), new Vector4(1, 1, 0, 1))).ToArray();

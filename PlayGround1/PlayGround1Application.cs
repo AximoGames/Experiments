@@ -15,6 +15,8 @@ namespace Aximo.PlayGround1
     {
         protected override void SetupScene()
         {
+            Aximo.Engine.Audio.AudioTest.Main_();
+
             // 745209020,1575012077, 1070395224,1297930682,1919654508,276724715,1493067016,651225054,904005342
             var gen = new Generators.AlchemyCircle.AlchemyCircleOptions
             {
@@ -169,12 +171,12 @@ namespace Aximo.PlayGround1
             var m2 = Mesh.CreateCylinder();
             m2.Scale(0.3f, 0.3f);
             m2.Translate(new Vector3(0, 0, 0.05f));
-            tmp.AddMesh(m2, 0, 1);
+            tmp.AddMesh(m2, 1);
 
             var m3 = Mesh.CreateCylinder();
             m2.Scale(0.15f, 0.15f);
             m2.Translate(new Vector3(0, 0, 0.3f));
-            tmp.AddMesh(m2, 0, 2);
+            tmp.AddMesh(m2, 2);
 
             // var tmp3 = Mesh.CreateCylinder(1f, 0.5f);
             // tmp3.Translate(new Vector3(0, -1f, 0));
