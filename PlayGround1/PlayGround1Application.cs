@@ -3,9 +3,11 @@
 
 using System;
 using Aximo.Engine;
+using Aximo.Engine.Audio;
 using Aximo.Engine.Components.Geometry;
 using Aximo.Engine.Components.Lights;
 using Aximo.Engine.Components.UI;
+using Aximo.Engine.Windows;
 using OpenToolkit.Mathematics;
 using OpenToolkit.Windowing.Common;
 
@@ -161,6 +163,12 @@ namespace Aximo.PlayGround1
             {
                 Name = "Sky",
             }));
+        }
+
+        protected override void OnMouseDown(MouseButtonArgs e)
+        {
+            AudioManager.Default.PlayAsync("/tmp/subrack.json");
+            base.OnMouseDown(e);
         }
 
         private StaticMeshComponent CreateMesh()
