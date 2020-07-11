@@ -17,7 +17,7 @@ namespace Aximo.PlayGround1
     {
         protected override void SetupScene()
         {
-            Aximo.Engine.Audio.AudioTest.Main_();
+            //Aximo.Engine.Audio.AudioTest.Main_();
 
             // 745209020,1575012077, 1070395224,1297930682,1919654508,276724715,1493067016,651225054,904005342
             var gen = new Generators.AlchemyCircle.AlchemyCircleOptions
